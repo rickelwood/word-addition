@@ -6,11 +6,11 @@
 # 27 addition 0 = ' ' to 26 = 'z' lowercase only.
 
 import time
-
+p=0
 BASE27LOOKUP = ' abcdefghijklmnopqrstuvwxyz'
 
 def add_words(word_1, word_2):
-
+    global p
     # pad the smaller string with leading zeros ('`' in this case)
     # save the length of the longest string
     if len(word_1) > len(word_2):
@@ -44,6 +44,9 @@ def add_words(word_1, word_2):
         i -= 1
     if carry == 1:
         result = 'a' + result
+    if k > p:
+        print(k)
+        p = k
     return result
 
 # open the input text file and add words to list
@@ -63,10 +66,12 @@ while k < dict_length:
         word_sum = add_words(wordlist[k], wordlist[j])
         if word_sum in wordlist:
             word_count +=1
-            result_string = str(word_count) + ': ' + wordlist[k] + ' + ' + wordlist[j] + ' = ' + word_sum + '\n'
+            result_string = '\n' + str(word_count) + ': ' + wordlist[k] + ' + ' + wordlist[j] + ' = ' + word_sum + '\n'
             results_file.write(result_string)
         j = j + 1
+    time.sleep(1)
     k += 1
+
 f.close()
 print('total matches: ', word_count)
 print('time:',time.time() - start_time)
