@@ -6,11 +6,11 @@
 # 27 addition 0 = ' ' to 26 = 'z' lowercase only.
 
 import time
-p=0
-BASE27LOOKUP = ' abcdefghijklmnopqrstuvwxyz'
 
+p=0
+# Adds two words and returns the result as a string
 def add_words(word_1, word_2):
-    global p
+
     # pad the smaller string with leading zeros ('`' in this case)
     # save the length of the longest string
     if len(word_1) > len(word_2):
@@ -21,7 +21,7 @@ def add_words(word_1, word_2):
         word_1 = word_1.rjust(length,'`')
     else:
         length = len(word_1)
-
+    global p
     # convert unicode strings to byte arrays
     word_2 = word_2.encode()
     word_1 = word_1.encode()
@@ -55,7 +55,6 @@ with open('wordlist.txt') as f:
 
 # create output text file to store the words that result in a valid word
 results_file = open('word_sum_results.txt', 'w')
-
 dict_length = len(wordlist)
 word_count = k = j = 0
 start_time = time.time()
@@ -71,7 +70,6 @@ while k < dict_length:
         j = j + 1
     time.sleep(1)
     k += 1
-
 f.close()
 print('total matches: ', word_count)
 print('time:',time.time() - start_time)
