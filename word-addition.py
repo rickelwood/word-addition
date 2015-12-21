@@ -3,10 +3,9 @@
 # 12-20-2015
 # reads from dictionary of words and finds words that
 # when added together result in another. Assuming base
-# 27 addtion 0 = ' ' to 26 = 'z' lowercase only.
+# 27 addition 0 = ' ' to 26 = 'z' lowercase only.
 
-import sys
-from binascii import *
+import time
 
 BASE27LOOKUP = ' abcdefghijklmnopqrstuvwxyz'
 
@@ -45,8 +44,31 @@ def add_words(word_1, word_2):
         i -= 1
     if carry == 1:
         result = 'a' + result
-    print(result)
+    return result
 
+# open the input text file and add words to list
+with open('wordlist.txt') as f:
+    wordlist = [wordlist.rstrip('\n') for wordlist in open('wordlist.txt')]
 
-add_words('zog', 'catamaran')
+# create output text file to store the words that result in a valid word
+results_file = open('word_sum_results.txt', 'w')
+
+dict_length = len(wordlist)
+word_count = k = j = 0
+start_time = time.time()
+print("Completed: ", end='', sep='')
+while k < dict_length:
+    j = k
+    while j < dict_length:
+        word_sum = add_words(wordlist[k], wordlist[j])
+        if word_sum in wordlist:
+            word_count +=1
+            result_string = str(word_count) + ': ' + wordlist[k] + ' + ' + wordlist[j] + ' = ' + word_sum + '\n'
+            results_file.write(result_string)
+        j = j + 1
+    k += 1
+f.close()
+print('total matches: ', word_count)
+print('time:',time.time() - start_time)
+
 
